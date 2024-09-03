@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import DeleteTask from '../UseCase/DeleteTask/DeleteTask';
 import GetAllTasksUseCase from '../UseCase/GetAllTasks/GetAllTasksUseCase';
 import SaveTaskDto from '../UseCase/SaveTask/SaveTaskDto';
-import UseCaseFactory from '../UseCase/UseCaseFactory';
+import {UseCaseFactory} from '../UseCase/UseCaseFactory';
 import CreateTask from '../UseCase/CreateTask/CreateTask'; // Importer le UseCase pour la création des tâches
 
 @Controller()

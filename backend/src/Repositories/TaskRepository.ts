@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../PrismaService';
+import { PrismaService } from '../services/prisma.service'; // Assurez-vous que le chemin est correct
 import { Prisma } from '@prisma/client';
 
 @Injectable()
@@ -12,21 +12,21 @@ export default class TaskRepository {
 
   async delete(id: number) {
     return this.prisma.task.delete({
-      where: {
-        id,
-      },
+      where: { id },
     });
   }
 
   async save(
-    data:
-      | Prisma.XOR<Prisma.TaskCreateInput, Prisma.TaskUncheckedCreateInput>
-      | Prisma.XOR<Prisma.TaskUpdateInput, Prisma.TaskUncheckedUpdateInput>,
+    data: Prisma.XOR<Prisma.TaskCreateInput, Prisma.TaskUncheckedCreateInput> |
+          Prisma.XOR<Prisma.TaskUpdateInput, Prisma.TaskUncheckedUpdateInput>,
   ) {
-    if (!data.id) {
-      // @todo IMPLEMENT HERE USING PRISMA API
+    if (data.id) {
+      return this.prisma.task.update({
+        where: { id: data.id },
+        data,
+      });
+    } else {
+      return this.prisma.task.create({ data });
     }
-
-    // @todo IMPLEMENT HERE USING PRISMA API
   }
 }
